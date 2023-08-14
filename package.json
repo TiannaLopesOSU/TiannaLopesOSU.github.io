@@ -1,0 +1,24 @@
+{
+  "name": "testing-with-model",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TiannaLopesOSU/testing-with-model.git"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.1",
+    "dat.gui": "^0.7.7",
+    "three": "^0.133.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TiannaLopesOSU/testing-with-model/issues"
+  },
+  "homepage": "https://github.com/TiannaLopesOSU/testing-with-model#readme"
+}
