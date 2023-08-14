@@ -619,6 +619,10 @@ assetLoader.load(narratorUrl.href, function(gltf) {
     const box = new _three.Box3().setFromObject(model);
     const center = box.getCenter(new _three.Vector3());
     camera.lookAt(center);
+    const mesh = gltf.scene.children[0];
+    console.log(gltf.scene);
+    const shapeKeys = mesh.morphTargetInfluences; // Access the shape keys/morph targets
+    console.log(shapeKeys);
 }, undefined, function(error) {
     console.error(error);
 });
