@@ -20,8 +20,8 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.set(5, 6, 9);
 camera.lookAt(0, 0, 0);
-const orbit = new OrbitControls(camera, renderer.domElement);
-orbit.update();
+// const orbit = new OrbitControls(camera, renderer.domElement);
+// orbit.update();
 
 const light = new THREE.SpotLight(0xffffff);
 scene.add(light);
@@ -75,24 +75,23 @@ assetLoader.load(
 
 const mousePosition = new THREE.Vector2();
 
-window.addEventListener("mousemove", function (e) {
-  mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
-  mousePosition.y = -(e.clientY / window.innerHeight) * 2 + 1;
-});
+// window.addEventListener("mousemove", function (e) {
+//   mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
+//   mousePosition.y = -(e.clientY / window.innerHeight) * 2 + 1;
+// });
 
-const rayCaster = new THREE.Raycaster();
+// const rayCaster = new THREE.Raycaster();
 
 function animate() {
-  rayCaster.setFromCamera(mousePosition, camera);
-  const intersects = rayCaster.intersectObjects(scene.children);
-
+  //   rayCaster.setFromCamera(mousePosition, camera);
+  //   const intersects = rayCaster.intersectObjects(scene.children);
   renderer.render(scene, camera);
 }
 
 renderer.setAnimationLoop(animate);
 
 window.addEventListener("resize", function () {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  //   camera.aspect = window.innerWidth / window.innerHeight;
+  //   camera.updateProjectionMatrix();
+  //   renderer.setSize(window.innerWidth, window.innerHeight);
 });
