@@ -577,7 +577,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 var _three = require("three");
 var _orbitControlsJs = require("three/examples/jsm/controls/OrbitControls.js");
 var _gltfloaderJs = require("three/examples/jsm/loaders/GLTFLoader.js");
-const narratorUrl = new URL(require("37675056b1554093"));
+const narratorUrl = new URL(require("d1e0977b21eccb14"));
 const canvasContainer = document.getElementById("threeCanvasContainer");
 const renderer = new _three.WebGLRenderer();
 renderer.shadowMap.enabled = true;
@@ -614,15 +614,18 @@ scene.fog = new _three.FogExp2(0xffffff, 0.01);
 const assetLoader = new (0, _gltfloaderJs.GLTFLoader)();
 assetLoader.load(narratorUrl.href, function(gltf) {
     const model = gltf.scene;
+    // Set morphTargets to true for all materials in the model
+    model.traverse((child)=>{
+        if (child.isMesh) child.material.morphTargets = true;
+        // Check if the child has the CRAZYKEY morph target
+        if (child.morphTargetDictionary?.CRAZYKEY !== undefined) // Toggle CRAZYKEY between 0 and 1
+        child.morphTargetDictionary.CRAZYKEY = child.morphTargetDictionary.CRAZYKEY === 0 ? 1 : 0;
+    });
     scene.add(model);
     model.position.set(-3, 4, 9);
     const box = new _three.Box3().setFromObject(model);
     const center = box.getCenter(new _three.Vector3());
     camera.lookAt(center);
-    const mesh = gltf.scene.children[0];
-    console.log(gltf.scene);
-    const shapeKeys = mesh.morphTargetInfluences; // Access the shape keys/morph targets
-    console.log(shapeKeys);
 }, undefined, function(error) {
     console.error(error);
 });
@@ -637,6 +640,10 @@ function animate() {
     //   const intersects = rayCaster.intersectObjects(scene.children);
     renderer.render(scene, camera);
 }
+function animate2() {
+// Update morph targets here
+}
+animate2();
 renderer.setAnimationLoop(animate);
 window.addEventListener("resize", function() {
 //   camera.aspect = window.innerWidth / window.innerHeight;
@@ -644,7 +651,7 @@ window.addEventListener("resize", function() {
 //   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-},{"three":"ktPTu","three/examples/jsm/controls/OrbitControls.js":"7mqRv","three/examples/jsm/loaders/GLTFLoader.js":"dVRsF","37675056b1554093":"3Rios"}],"ktPTu":[function(require,module,exports) {
+},{"three":"ktPTu","three/examples/jsm/controls/OrbitControls.js":"7mqRv","three/examples/jsm/loaders/GLTFLoader.js":"dVRsF","d1e0977b21eccb14":"BlhjC"}],"ktPTu":[function(require,module,exports) {
 /**
  * @license
  * Copyright 2010-2021 Three.js Authors
@@ -32936,10 +32943,10 @@ function buildNodeHierarchy(nodeId, parentObject, json, parser) {
     return newGeometry;
 }
 
-},{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"3Rios":[function(require,module,exports) {
-module.exports = require("cf42bca966ceb65f").getBundleURL("e6MYJ") + "model.6c4b2d4f.glb" + "?" + Date.now();
+},{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"BlhjC":[function(require,module,exports) {
+module.exports = require("abcf9203e716b636").getBundleURL("e6MYJ") + "avatar.b84e8b0a.glb" + "?" + Date.now();
 
-},{"cf42bca966ceb65f":"jMDco"}],"jMDco":[function(require,module,exports) {
+},{"abcf9203e716b636":"jMDco"}],"jMDco":[function(require,module,exports) {
 "use strict";
 var bundleURL = {};
 function getBundleURLCached(id) {

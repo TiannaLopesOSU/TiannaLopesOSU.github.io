@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
-const narratorUrl = new URL("../assets/model.glb", import.meta.url);
+const narratorUrl = new URL("../assets/avatar.glb", import.meta.url);
 const canvasContainer = document.getElementById("threeCanvasContainer");
 
 const renderer = new THREE.WebGLRenderer();
@@ -56,16 +56,27 @@ assetLoader.load(
   narratorUrl.href,
   function (gltf) {
     const model = gltf.scene;
+
+    // Set morphTargets to true for all materials in the model
+    model.traverse((child) => {
+      if (child.isMesh) {
+        child.material.morphTargets = true;
+      }
+
+      // Check if the child has the CRAZYKEY morph target
+      if (child.morphTargetDictionary?.CRAZYKEY !== undefined) {
+        // Toggle CRAZYKEY between 0 and 1
+        child.morphTargetDictionary.CRAZYKEY =
+          child.morphTargetDictionary.CRAZYKEY === 0 ? 1 : 0;
+      }
+    });
+
     scene.add(model);
+
     model.position.set(-3, 4, 9);
     const box = new THREE.Box3().setFromObject(model);
     const center = box.getCenter(new THREE.Vector3());
     camera.lookAt(center);
-
-    const mesh = gltf.scene.children[0];
-    console.log(gltf.scene);
-    const shapeKeys = mesh.morphTargetInfluences; // Access the shape keys/morph targets
-    console.log(shapeKeys);
   },
   undefined,
   function (error) {
@@ -87,6 +98,11 @@ function animate() {
   //   const intersects = rayCaster.intersectObjects(scene.children);
   renderer.render(scene, camera);
 }
+
+function animate2() {
+  // Update morph targets here
+}
+animate2();
 
 renderer.setAnimationLoop(animate);
 
