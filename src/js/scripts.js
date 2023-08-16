@@ -52,10 +52,12 @@ scene.fog = new THREE.FogExp2(0xffffff, 0.01);
 
 const assetLoader = new GLTFLoader();
 
+let model;
+
 assetLoader.load(
   narratorUrl.href,
   function (gltf) {
-    const model = gltf.scene;
+    model = gltf.scene;
 
     // Set morphTargets to true for all materials in the model
     model.traverse((child) => {
@@ -63,12 +65,13 @@ assetLoader.load(
         child.material.morphTargets = true;
       }
 
-      // Check if the child has the CRAZYKEY morph target
-      if (child.morphTargetDictionary?.CRAZYKEY !== undefined) {
-        // Toggle CRAZYKEY between 0 and 1
-        child.morphTargetDictionary.CRAZYKEY =
-          child.morphTargetDictionary.CRAZYKEY === 0 ? 1 : 0;
-      }
+      //   // Check if the child has the CRAZYKEY morph target
+      //   if (child.morphTargetDictionary?.CRAZYKEY !== undefined) {
+      //     // Toggle CRAZYKEY between 0 and 1
+      //     console.log(child.morphTargetDictionary.CRAZYKEY);
+      //     child.morphTargetDictionary.CRAZYKEY =
+      //       child.morphTargetDictionary.CRAZYKEY === 0 ? 1 : 0;
+      //   }
     });
 
     scene.add(model);
@@ -86,28 +89,39 @@ assetLoader.load(
 
 const mousePosition = new THREE.Vector2();
 
-// window.addEventListener("mousemove", function (e) {
-//   mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
-//   mousePosition.y = -(e.clientY / window.innerHeight) * 2 + 1;
-// });
-
-// const rayCaster = new THREE.Raycaster();
-
 function animate() {
-  //   rayCaster.setFromCamera(mousePosition, camera);
-  //   const intersects = rayCaster.intersectObjects(scene.children);
+  requestAnimationFrame(animate);
+
   renderer.render(scene, camera);
 }
 
+let startTime = Date.now();
+
+// Animation duration in milliseconds (2 seconds)
+const animationDuration = 5000;
+
 function animate2() {
-  // Update morph targets here
+  console.log("calling animate2");
+  if (!model) {
+    setTimeout(animate2, 1000);
+    return;
+  }
+  const currentTime = Date.now();
+  const elapsed = currentTime - startTime;
+
+  model.traverse((child) => {
+    if (child.isMesh && child.morphTargetDictionary?.CRAZYKEY !== undefined) {
+      console.log(child.morphTargetDictionary.CRAZYKEY);
+      child.morphTargetDictionary.CRAZYKEY =
+        child.morphTargetDictionary.CRAZYKEY === 0 ? 1 : 0;
+    }
+  });
+
+  setTimeout(animate2, animationDuration);
 }
+
 animate2();
 
 renderer.setAnimationLoop(animate);
 
-window.addEventListener("resize", function () {
-  //   camera.aspect = window.innerWidth / window.innerHeight;
-  //   camera.updateProjectionMatrix();
-  //   renderer.setSize(window.innerWidth, window.innerHeight);
-});
+window.addEventListener("resize", function () {});
