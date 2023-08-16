@@ -19,11 +19,13 @@ document.body.appendChild(renderer.domElement);
 // scene.add(gridhelper);
 
 let eye;
+let eyebrows;
 const loader = new GLTFLoader();
 loader.load("/public/cartoonGirl.glb", function (gltf) {
   scene.add(gltf.scene);
 
   eye = gltf.scene.getObjectByName("Eye");
+  eyebrows = gltf.scene.getObjectByName("Eyebrows");
 });
 
 const ambientLight = new THREE.AmbientLight(0xfffffff, 1);
@@ -49,7 +51,7 @@ function animate() {
   controls.update();
 
   if (eye) {
-    eye.rotation.y = Math.sign(Date.now() / 1000) / 2;
+    eye.rotation.z = Math.sin(Date.now() / 1000) / 2;
   }
 
   renderer.render(scene, camera);
