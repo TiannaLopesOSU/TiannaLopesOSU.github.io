@@ -1,24 +1,17 @@
 {
-  "name": "testing-with-model",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "avatar-scene",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TiannaLopesOSU/testing-with-model.git"
+  "devDependencies": {
+    "vite": "^4.4.5"
   },
   "dependencies": {
-    "bootstrap": "^5.3.1",
-    "dat.gui": "^0.7.7",
-    "three": "^0.133.0"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/TiannaLopesOSU/testing-with-model/issues"
-  },
-  "homepage": "https://github.com/TiannaLopesOSU/testing-with-model#readme"
+    "three": "^0.155.0"
+  }
 }
